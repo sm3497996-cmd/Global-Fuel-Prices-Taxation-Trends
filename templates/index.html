@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Global fuel prices and taxation trends dashboard">
+    <title>Global Fuel Prices &amp; Taxation Trends | Fuel Insights</title>
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        body {
+            font-family: Nunito, sans-serif;
+        }
+
+        .sidebar-brand-text {
+            font-size: .95rem;
+        }
+
+        .project-subtitle {
+            color: #858796;
+        }
+
+        .insight-card {
+            min-height: 105px;
+            border-left: .25rem solid #4e73df;
+        }
+
+        .insight-card.diesel {
+            border-left-color: #1cc88a;
+        }
+
+        .insight-card.tax {
+            border-left-color: #36b9cc;
+        }
+
+        .tableau-frame-wrap {
+            width: 100%;
+            overflow-x: auto;
+            background: #fff;
+        }
+
+        .tableau-frame {
+            display: block;
+            width: 100%;
+            min-width: 1000px;
+            height: 950px;
+            border: 0;
+        }
+
+        @media (max-width: 768px) {
+            .tableau-frame {
+                height: 850px;
+            }
+        }
+
+        .sidebar .nav-item .nav-link {
+            padding-top: .9rem;
+            padding-bottom: .9rem;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#page-top">
+                <div class="sidebar-brand-icon"><i class="fas fa-gas-pump"></i></div>
+                <div class="sidebar-brand-text mx-3">FUEL INSIGHTS</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="#page-top"><i class="fas fa-fw fa-chart-line"></i><span>Dashboard</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">REPORT</div>
+            <li class="nav-item">
+                <a class="nav-link" href="#overview"><i class="fas fa-fw fa-gas-pump"></i><span>Fuel Price
+                        Overview</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#report"><i class="fas fa-fw fa-globe-asia"></i><span>Country &amp; Region
+                        Analysis</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#methodology"><i class="fas fa-fw fa-info-circle"></i><span>About This
+                        Report</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline"><button class="rounded-circle border-0" id="sidebarToggle"
+                    aria-label="Toggle sidebar"></button></div>
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3"
+                        aria-label="Toggle sidebar"><i class="fa fa-bars"></i></button>
+                    <span class="font-weight-bold text-primary">Global Fuel Price Intelligence</span>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <span class="nav-link"><i class="fas fa-chart-bar text-primary mr-2"></i>Interactive
+                                Report</span>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <span class="nav-link text-gray-600"><i class="fas fa-user-circle mr-2"></i>Fuel
+                                Analyst</span>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="container-fluid" id="overview">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <h1 class="h3 mb-1 text-gray-800">Global Fuel Prices &amp; Taxation Trends</h1>
+                            <p class="mb-0 project-subtitle">Explore global petrol and diesel prices, regional
+                                differences, and taxation insights.</p>
+                        </div>
+                        <span class="badge badge-primary p-2 mt-3 mt-sm-0">INTERACTIVE REPORT</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card shadow h-100 py-2 insight-card">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Report focus
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Global Fuel Prices</div>
+                                    <div class="small text-gray-600 mt-2">Compare fuel costs across countries.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card shadow h-100 py-2 insight-card diesel">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Fuel types
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Petrol &amp; Diesel</div>
+                                    <div class="small text-gray-600 mt-2">Review price levels and trends.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card shadow h-100 py-2 insight-card tax">
+                                <div class="card-body">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Analysis</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Prices, Regions &amp; Taxation
+                                    </div>
+                                    <div class="small text-gray-600 mt-2">Use report filters to explore differences.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow mb-4" id="report">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Interactive Tableau Dashboard</h6>
+                            <span class="small text-gray-600">Use the filters inside the report to explore the
+                                data.</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="tableau-frame-wrap">
+                                <iframe class="tableau-frame"
+                                    src="https://public.tableau.com/views/GlobalFuelPricesandTaxationTrends_17930838394600/Dashboard1?:showVizHome=no"
+                                    title="Global Fuel Prices and Taxation Trends Tableau Dashboard" loading="lazy"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow mb-4" id="methodology">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">About This Report</h6>
+                        </div>
+                        <div class="card-body">
+                            This report brings together global fuel-price comparisons and regional analysis in an
+                            interactive dashboard. Select a country, region, date range, or available fuel-related
+                            filter in Tableau to explore the data.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto"><span>Fuel Insights | Global Fuel Prices &amp; Taxation
+                            Trends</span></div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
+</body>
+
+</html>
